@@ -35,11 +35,25 @@
         <input type="text"  id="ueditorId"  /><br/>
         <button onclick="findOne()">查找</button>
 
+        <br/>
+        <br/>
+        <br/>
+        ---------------------显示-----------------------
+
+        <div id="showid">
+
+        </div>
 
     </div>
     <!--<script src="/goods.js"></script>-->
     <script type="text/javascript">
+
+
         var editor = UE.getEditor('container');
+
+        function  showAll() {
+
+        }
         //findOne
         function findOne() {
             var ueditorId =$("#ueditorId").val();
@@ -55,6 +69,8 @@
                     console.info("server_url="+server_url);
                     console.info("msg="+result.msg+"content="+result.content)
                     editor.setContent(result.data.content);
+                    $("#showid").append(result.data.content);
+
 
                 }
 
