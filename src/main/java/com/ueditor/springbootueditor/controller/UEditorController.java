@@ -17,16 +17,18 @@ public class UEditorController {
         return "index";
     }
 
-    @RequestMapping(value="/ueditorConfig")
+    @RequestMapping(value="/config")
     @ResponseBody
     public void config(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
 //        String rootPath = request.getSession().getServletContext().getRealPath("/");
         //配置config.json的位置
-        String rootPath =Thread.currentThread().getContextClassLoader().getResource("").getPath()+"templates";
+        String rootPath =Thread.currentThread().getContextClassLoader().getResource("").getPath()+"templates/";
         System.out.println(rootPath);
         try {
+            response.setCharacterEncoding("UTF-8");
             String exec = new ActionEnter(request, rootPath).exec();
+            System.out.println("exec="+exec);
             PrintWriter writer = response.getWriter();
             writer.write(exec);
             writer.flush();
