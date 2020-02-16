@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/ueditor/ueditor.config.js"></script>
+    <script src="/ueditor/ueditor.all.min.js"></script>
+    <script src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <!--<script src="/js/vuejs-2.5.16.js"></script>-->
+    <!--<script src="/js/axios-0.18.0.js"></script>-->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <div id="goodsApp">
+        用户名:
+        <input type="text"  id="name"  /><br/>
+        content:
+        <textarea  id="container"  name="content" type="text/plain">
+            请发布你的文章
+        </textarea>
+        <button onclick="add()">添加</button>
+        <br/><br/><br/>
+        ---------------------修改-----------------------
+        请输入要修改的id:<br/>
+        <input type="text"  id="ueditorId"  /><br/>
+        <button onclick="findOne()">查找</button>
+
+
+    </div>
+    <script src="/goods.js"></script>
+    <script type="text/javascript">
+        var editor = UE.getEditor('container');
+        //findOne
+        function findOne() {
+            var ueditorId =$("#ueditorId").val();
+            console.info("ueditorId:"+ueditorId);
+            $.ajax({
+                url:"/goods/findone",
+                dataType:"json",
+                data:{"id":ueditorId},
+                type:"get",
+                success:function(result){
+                    console.info("msg"+result.msg);
+
+                    console.info("msg="+result.msg+"content="+result.content)
+                    editor.setContent(result.data.content);
+
+                }
+
+            })
+
+
+        }
+
+        //添加
+        function add() {
+            var name =$("#name").val();
+            console.info("name:"+name);
+            var content = editor.getContent();
+            console.info(editor.getContent());
+            $.ajax({
+
+                url:"/goods/save",
+                dataType:"json",
+                data:{"name":name,"content":content},
+                type:"put",
+                success:function(result){
+
+
+                    console.info("msg="+result.msg);
+                }
+
+           })
+        }
+
+    </script>
+
+
+</body>
+</html>
+
