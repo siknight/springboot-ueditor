@@ -1,4 +1,4 @@
-package com.ueditor.springbootueditor.controller;
+package com.ueditor.springbootueditor.controller.blog;
 
 import com.baidu.ueditor.ActionEnter;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
-public class UEditorController {
+public class UEditorJsonController {
     @RequestMapping("/aa")
     private String showPage(){
         return "index";
@@ -23,8 +23,9 @@ public class UEditorController {
         response.setContentType("application/json");
 //        String rootPath = request.getSession().getServletContext().getRealPath("/");
         //配置config.json的位置
-        String rootPath =Thread.currentThread().getContextClassLoader().getResource("").getPath()+"templates/";
-        System.out.println(rootPath);
+        String rootPath =Thread.currentThread().getContextClassLoader().getResource("").getPath(); //+"templates/";
+
+        System.out.println("rootpath:"+rootPath);
         try {
             response.setCharacterEncoding("UTF-8");
             String exec = new ActionEnter(request, rootPath).exec();
